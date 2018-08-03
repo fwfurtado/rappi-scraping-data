@@ -1,0 +1,20 @@
+url-template: 'https://services.rappi.com.br/windu/products/store/{store}/sub_corridor/{sub_corridor}'
+
+stores:
+  -
+      name: minuto
+      id: 700000129
+      corridors:
+        -
+          id: 453624
+          name: cervejas
+        -
+          id: 453705
+          name: cervejas-especiais
+  -
+      name: gpa
+      id: 700001704
+      corridors:
+        -
+          name: cervejas
+          id: 471345
