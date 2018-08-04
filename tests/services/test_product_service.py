@@ -15,7 +15,7 @@ class TestProductService:
         return ProductValidator()
 
     def test_should_return_validation_errors_when_trying_to_create_a_new_product_with_invalid_form(self, service):
-        form = {'title': 'Stella'}
+        form = {'name': 'Stella'}
 
         result = service.create_new_product(form)
 
@@ -30,7 +30,7 @@ class TestProductService:
         assert 'required field' in price_error
 
     def test_should_return_new_product_when_form_is_valid(self, service):
-        form = {'title': 'stella', 'price': 2.9}
+        form = {'name': 'stella', 'price': 2.9}
 
         result = service.create_new_product(form)
 

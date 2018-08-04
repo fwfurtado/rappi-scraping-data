@@ -19,12 +19,18 @@ class Configuration(UserDict):
         super().__init__()
 
         with open(API_ROUTE_FILE, 'r') as file:
-            self.data = yaml.load(file)
+            data = yaml.load(file)
 
-        url = self.data['url-template']
+        self._url = data.pop('url-template')
 
-        corridor = partial(_corridor_selector, url)
+        corridor = partial(_corridor_selector, self._url)
 
-        for store in self.data['stores']:
+        for store in data['stores']:
             store_name = store['name']
             setattr(self.__class__, store_name, partial(corridor, store))
+
+        self.data = data
+
+    @property
+    def url(self) -> str:
+        return self._url
