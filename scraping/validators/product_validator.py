@@ -9,5 +9,7 @@ class ProductValidator(AbstractValidator):
     def schema(self):
         return {
                     'name': {'type': 'string', 'required': True, 'empty': False},
-                    'price': {'type': 'float', 'required': True}
+                    'store': {'type': 'string', 'required': True, 'empty': False},
+                    'price': {'type': 'float', 'required': True},
+                    'real_price': {'type': 'float', 'required': True},
                }
