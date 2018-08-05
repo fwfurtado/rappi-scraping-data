@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  database:
+    image: mdillon/postgis
+    environment:
+      - POSTGRES_DB=rappi
+      - POSTGRES_USER=scraping
+      - POSTGRES_PASSWORD=123mudar
+    volumes:
+      - rappi:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - scraping
+  grafana:
+    image: grafana/grafana
+    depends_on:
+      - database
+    restart: on-failure
+    ports:
+      - 3000:3000
+    networks:
+      - scraping
+    volumes:
+      - grafana:/var/lib/grafana
+
+
+networks:
+  scraping:
+
+volumes:
+  rappi:
+  grafana:

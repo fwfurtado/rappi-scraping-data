@@ -1,25 +1,10 @@
-class Product:
-    def __init__(self, name: str, price: float, store: str, real_price: float = 0.0):
-        self._name = name
-        self._price = price
-        self._real_price = real_price
-        self._store = store
+from sqlalchemy import Column, String, Numeric
 
-    @property
-    def name(self):
-        return self._name
+from scraping.lib.session_factory import Base
 
-    @property
-    def price(self):
-        return self._price
 
-    @property
-    def store(self):
-        return self._store
-
-    @property
-    def real_price(self):
-        return self._real_price
-
-    def __repr__(self):
-        return 'Product(name="{_name}", price={_price}, store="{_store}", real_price={_real_price})'.format(**self.__dict__)
+class Product(Base):
+    name = Column(String, nullable=False)
+    price = Column(Numeric(precision=9, scale=3), nullable=False)
+    real_price = Column(Numeric(precision=9, scale=3), nullable=False)
+    store = Column(String, nullable=False)

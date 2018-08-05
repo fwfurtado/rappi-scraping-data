@@ -1,6 +1,10 @@
-from requests import get
 from functools import partial
+
+from requests import get
+
 from scraping.lib import configuration as config
+from scraping.lib.session_factory import Transactional
+from scraping.repositories.product_repository import save, session
 from scraping.services import product_service
 
 
@@ -19,7 +23,6 @@ def _get_all_corridors_by_store(url, store):
 
 
 def get_all_corridors(url, store_sequence):
-
     get_all_corridors_by_store = partial(_get_all_corridors_by_store, url)
 
     for corridor_items in map(get_all_corridors_by_store, store_sequence):
@@ -52,8 +55,8 @@ def _get_products(store_name, url):
             print(result.value)
 
 
+@Transactional(session)
 def main():
-
     url_template = config.url
 
     of_all_stores = get_all_stores(config)
@@ -63,7 +66,7 @@ def main():
     products = get_all_products(in_all_corridors_of_all_stores)
 
     for item in products:
-        print(item)
+        save(item)
 
 
 if __name__ == '__main__':
